@@ -1,0 +1,5 @@
+macro "FIND-CURVE"{
+runMacro(getDirectory("macros")+File.separator()+"Find-Curve"+File.separator()+"Main.java");
+}
+
+//End_Find-Curve
