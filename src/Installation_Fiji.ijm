@@ -1,6 +1,8 @@
 macro "Installation"{
 
-version = "1.0b 2017/04/25";
+tag = "v1.0.0"
+lastStableCommit = "11677e4a"
+myProgram = "Find Curve Analysis";
 
 
 //IJ version verification and close the macro's window
@@ -12,15 +14,11 @@ requires("1.49g");
 Errors=0;
 
 //GUI Message
-Dialog.create("Installation wizard for the FIND-CURVE macro");
-Dialog.addMessage("Version\n" + version);
-Dialog.addMessage("Cluet David\nResearch Ingeneer,PHD\nCNRS, ENS-Lyon, LBMC");
-Dialog.addMessage("This program will install the FIND-CURVE macro.\nShortcuts will be added in the Plugins/Macros menu.");
-Dialog.show();
+Welcome(myProgram, tag, lastStableCommit);
 
 //Prepare key paths
 PathSUM = getDirectory("macros")+File.separator+"StartupMacros.fiji.ijm";
-PathFolderInput =File.directory+File.separator+"Files"+File.separator;
+PathFolderInput =File.directory+File.separator+"macro"+File.separator;
 PathOutput = getDirectory("macros")+"Find-Curve"+File.separator;
 
 //Listing of the files to instal
@@ -69,8 +67,15 @@ for(i=0; i<lengthOf(Listing); i++){
 PCommandLine = PathFolderInput+ "Startup_CL.txt";
 SUM = File.openAsString(PathSUM);
 pos =lastIndexOf(SUM, "//End_Find-Curve");
+repair = lastIndexOf(SUM, "Main.ijm");
 if(pos == -1){
 	SUM = SUM + "\n\n" + File.openAsString(PCommandLine);
+	Startup = File.open(PathSUM);
+	print(Startup, SUM);
+	File.close(Startup);
+}
+if(repair != -1){
+	SUM = replace(SUM, "Main.ijm", "Main.java");
 	Startup = File.open(PathSUM);
 	print(Startup, SUM);
 	File.close(Startup);
@@ -78,12 +83,53 @@ if(pos == -1){
 
 //The program prompts the user of the success or failure of the installation.
 if(Errors == 0){
-waitForUser("Installation has been performed sucessfully!\nRestart your ImageJ program.");
+DisplayInfo("", myProgram,
+		"Installation has been performed sucessfully!<br>Restart your ImageJ program.");
 } else {
-waitForUser("Files were missing!\nInstallation is incomplete.");
+DisplayInfo("", myProgram,
+		"Files were missing!<br>Installation is incomplete.");
 }
 
 //Find plugin
-runMacro(getDirectory("macros")+File.separator()+"Find-Curve"+File.separator()+"macro_AjoutPlugin.ijm");
+runMacro(getDirectory("macros")+File.separator()+"Find-Curve"+File.separator()+"macro_AjoutPlugin.java");
+
+/*
+================================================================================
+*/
+
+function DisplayInfo(Titre, NomProg, Message){
+    showMessage(Titre, "<html>"
+			+"<font size=+3>"
+			+"<h1><font color=rgb(77,172,174)>" + NomProg + " INSTALLATION</h1>"
+			+"<font size=+0>"
+			+"<font color=rgb(0,0,0)>"
+            		+"<p>" + Message + "</p>"
+			);
+}//END DisplayInfo
+
+/*
+================================================================================
+*/
+
+function Welcome(NomProg, myTag, myCommit){
+    showMessage("WELCOME", "<html>"
+			+"<font size=+3>"
+			+"<h1><font color=rgb(77,172,174)>" + NomProg + " INSTALLATION</h1>"
+			+"<font size=+0>"
+			+"<font color=rgb(0,0,0)>"
+			+"<ul>"
+			+"<li>Version: " + myTag + "</li>"
+			+"<li>Last stable commit: " + myCommit + "</li>"
+			+"</ul>"
+			+"<p><font color=rgb(100,100,100)>Cluet David<br>"
+            		+"Research Ingeneer,PHD<br>"
+            		+"<font color=rgb(77,172,174)>CNRS, ENS-Lyon, LBMC</p>"
+			+"<p><font color=rgb(0,0,0)>This program will install the Find_Curve macro.<br>
+            		+"Shortcut will be added in the Plugins/Macros menu.</p>"
+			);
+}//END WELCOME
+
+
+
 
 }

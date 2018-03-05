@@ -15,7 +15,7 @@ if(Resultat==0){
 	Dialog.show();
 
 }else{
-	waitForUser("Plugin "+Nameplugin+" is installed.");
+	DisplayInfo("Plugin "+Nameplugin+" is installed.");
 }
 
 //FUNCTIONS________________________________________________________________________________________________________
@@ -46,6 +46,22 @@ function findPlugin(logicielpath, PluginName) {
 	}
 	return myres;
 }
+
+/*
+================================================================================
+*/
+
+function DisplayInfo(Message){
+    showMessage("", "<html>"
+			+"<font size=+3>"
+			+"<h1><font color=rgb(77,172,174)>Find Curve Analysis</h1>"
+			+"<font size=+0>"
+			+"<font color=rgb(0,0,0)>"
+            +"<p>" + Message + "</p>"
+			);
+}//END DisplayInfo
+
+
 }
 //End of the macro
 

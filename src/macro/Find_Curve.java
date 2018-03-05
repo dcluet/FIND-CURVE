@@ -5,7 +5,13 @@ macro "Find_Curve" {
 	//_______________________________________________
 	Path = Arguments[0];		//Path of the image to process
 	PathOutput = Arguments[1];	//Path of the folder to store the results
-	version = "Find-Curve 2017/04/07";		//Version of the macro
+    if (Arguments.length == 3){
+        BestSlice = parseFloat(Arguments[2]);   //Manual slice identified
+    }else{
+        BestSlice = -1;
+    }
+
+	version = "Find-Curve 2018/03/05";		//Version of the macro
 	WHTML=400;			//width of the low-resolution images diplayed on the html
 	unit = "pix";			//Defaul unit for distance calculation
 	NZ = 10;			//Value of the numeric zoom
@@ -100,53 +106,91 @@ macro "Find_Curve" {
 	close();
 
 	//Initialisation
-	BestSlice = -1;
-	Surface = 0;
+	if (BestSlice == -1){
+        Surface = 0;
 
-	//Searching for optimale (biggest surface) slice
-	for(S=1; S<=N; S++){
+    	//Searching for optimale (biggest surface) slice
+    	for(S=1; S<=N; S++){
 
-		selectWindow(T);
-		setSlice(S);
-		makeRectangle(0,0, W, H);
+    		selectWindow(T);
+    		setSlice(S);
+    		makeRectangle(0,0, W, H);
 
-		//Set the Threshold
-		setAutoThreshold("Default");
+    		//Set the Threshold
+    		setAutoThreshold("Default");
 
-		//Find the cell
-		run("Analyze Particles...", "size=1-Infinity add slice");
+    		//Find the cell
+    		run("Analyze Particles...", "size=1-Infinity add slice");
 
-		//Research the biggest ROI on the slice
-		SurfaceLocale = 0;
-		Index = -1;
+    		//Research the biggest ROI on the slice
+    		SurfaceLocale = 0;
+    		Index = -1;
 
-		//Security if we have several hits
-		for(roi = 0; roi<roiManager("count"); roi++){
-			//select the ROI of roi index
-			roiManager("Select", roi);
-			//Measure the area
-			List.setMeasurements;
-			A = List.getValue("Area");
+    		//Security if we have several hits
+    		for(roi = 0; roi<roiManager("count"); roi++){
+    			//select the ROI of roi index
+    			roiManager("Select", roi);
+    			            print(""+ ort + " " + myListeAxis[ort]);//Measure the area
+    			List.setMeasurements;
+    			A = List.getValue("Area");
 
-			//If surface>SurfaceLocale
-			if(A>SurfaceLocale){
-				SurfaceLocale = A;
-				Index = roi;
-			}
-		}
+    			//If surface>SurfaceLocale
+    			if(A>SurfaceLocale){
+    				SurfaceLocale = A;
+    				Index = roi;
+    			}
+    		}
 
-		//Measure the surface and transfer the value into variable Surface if bigger
-		if (SurfaceLocale>Surface){
-			Surface = SurfaceLocale;
-			BestSlice = S;
-			roiManager("Select", Index);
-			//Harvest the coordinates of the perimeter peaks
-			Roi.getCoordinates(Xcoords, Ycoords);
-			getStatistics(areaGM, meanGM, minGM, maxGM, stdGM, histogramGM);
-		}
-		//Cleaning of the ROIManager
-		CleanManager();
-	}//End of the loop to identify the optimal slice
+    		//Measure the surface and transfer the value into variable Surface if bigger
+    		if (SurfaceLocale>Surface){
+    			Surface = SurfaceLocale;
+    			BestSlice = S;
+    			roiManager("Select", Index);
+    			//Harvest the coordinates of the perimeter peaks
+    			Roi.getCoordinates(Xcoords, Ycoords);
+    			getStatistics(areaGM, meanGM, minGM, maxGM, stdGM, histogramGM);
+    		}
+    		//Cleaning of the ROIManager
+    		CleanManager();
+    	}//End of the loop to identify the optimal slice
+
+    }else{
+        //Upstream manual identification
+        selectWindow(T);
+        setSlice(BestSlice);
+        makeRectangle(0,0, W, H);
+
+        //Set the Threshold
+        setAutoThreshold("Default");
+
+        //Find the cell
+        run("Analyze Particles...", "size=1-Infinity add slice");
+
+        //Research the biggest ROI on the slice
+        SurfaceLocale = 0;
+        Index = -1;
+
+        //Security if we have several hits
+        for(roi = 0; roi<roiManager("count"); roi++){
+            //select the ROI of roi index
+            roiManager("Select", roi);
+            //Measure the area
+            List.setMeasurements;
+            A = List.getValue("Area");
+
+            //If surface>SurfaceLocale
+            if(A>SurfaceLocale){
+                SurfaceLocale = A;
+                Index = roi;
+            }
+        }
+
+        roiManager("Select", Index);
+        //Harvest the coordinates of the perimeter peaks
+        Roi.getCoordinates(Xcoords, Ycoords);
+        getStatistics(areaGM, meanGM, minGM, maxGM, stdGM, histogramGM);
+
+    }//Identification or not of the best slice.
 
 	//Close all images
 	runMacro(getDirectory("macros")+File.separator()+"Find-Curve"+File.separator()+"CloseImages.java");
@@ -169,6 +213,8 @@ macro "Find_Curve" {
 	CoordTchou = Perimeter(Xcoords, Ycoords);
 	Xcoords = SplitF(CoordTchou[0],"\t");
 	Ycoords = SplitF(CoordTchou[1],"\t");
+
+    waitForUser("" + Xcoords.length);
 
 	//Make the polygon of the cell
 	selectWindow("Cell");
@@ -1593,7 +1639,7 @@ function CleanManager(){
 /*
 Remove all existing ROI in the ROImanager
 */
-runMacro(getDirectory("macros")+File.separator()+"Find-Curve"+File.separator()+"ROIeraser.java");	
+runMacro(getDirectory("macros")+File.separator()+"Find-Curve"+File.separator()+"ROIeraser.java");
 }
 //End of function cleanManager
 
