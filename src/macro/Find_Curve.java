@@ -130,7 +130,7 @@ macro "Find_Curve" {
     		for(roi = 0; roi<roiManager("count"); roi++){
     			//select the ROI of roi index
     			roiManager("Select", roi);
-    			            print(""+ ort + " " + myListeAxis[ort]);//Measure the area
+                //Measure the area
     			List.setMeasurements;
     			A = List.getValue("Area");
 
@@ -214,8 +214,6 @@ macro "Find_Curve" {
 	Xcoords = SplitF(CoordTchou[0],"\t");
 	Ycoords = SplitF(CoordTchou[1],"\t");
 
-    waitForUser("" + Xcoords.length);
-
 	//Make the polygon of the cell
 	selectWindow("Cell");
 	makeSelection("polygon", Xcoords, Ycoords);
@@ -242,6 +240,11 @@ macro "Find_Curve" {
 	Angle = newArray(lengthOf(Xcoords));
 
 	//Calculate "instant angle" for each point of the perimeter (Xi, Yi)
+
+    //HARDCODED size dependant window for angle calculation
+    t = t * Xcoords.length / 216;
+
+
 	for(i=t; i<lengthOf(Xcoords)-t; i++){
 		X1 = Xcoords[i-t];
 		Y1 = Ycoords[i-t];
