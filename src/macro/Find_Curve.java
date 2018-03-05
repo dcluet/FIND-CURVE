@@ -235,15 +235,15 @@ macro "Find_Curve" {
 
 	//Preparing arrays for angle calculation and smoothing
 	realsize = lengthOf(Xcoords);
+
+    //HARDCODED size dependant window for angle calculation
+    t = t * realsize / 216;
+
 	Xcoords = Array.concat(Xcoords,Xcoords,Xcoords);
 	Ycoords = Array.concat(Ycoords,Ycoords,Ycoords);
 	Angle = newArray(lengthOf(Xcoords));
 
 	//Calculate "instant angle" for each point of the perimeter (Xi, Yi)
-
-    //HARDCODED size dependant window for angle calculation
-    t = t * Xcoords.length / 216;
-
 
 	for(i=t; i<lengthOf(Xcoords)-t; i++){
 		X1 = Xcoords[i-t];
