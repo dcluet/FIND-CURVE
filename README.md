@@ -2,7 +2,7 @@ Automated calculation of radius of curvature of cytoplasmic membrane
 ===
 
 
-|![3D stack](doc/3D.jpg)|![Identified biggest slice](doc/Slice.jpg)|![Segments identification](doc/Identification.jpg)|![calculated Radius of curvature](doc/Segment.jpg)
+|![3D stack](src/doc/3D.jpg)|![Identified biggest slice](src/doc/Slice.jpg)|![Segments identification](src/doc/Identification.jpg)|![calculated Radius of curvature](src/doc/Segment.jpg)
 |-------------------------------------|-----------------------------------|-----------------------------------|-----------------------------------|
 |**ORIGINAL 3D CELL**   |**IDENTIFIED "BEST" SLICE**   |**AUTOMATED DETECTION OF THE SEGMENTS**   |**AUTOMATED CALCULATION OF THE RADIUS OF CURVATURE**   |
 
@@ -10,7 +10,7 @@ Automated calculation of radius of curvature of cytoplasmic membrane
 **Authors**
 --
 
-| ![LBMC Logo](doc/Logo_LBMC.jpg) ![CNRS Logo](doc/Logo_cnrs.jpg) ![ENS Logo](doc/Logo_ens.jpg) ||
+| ![LBMC Logo](src/doc/Logo_LBMC.jpg) ![CNRS Logo](src/doc/Logo_cnrs.jpg) ![ENS Logo](src/doc/Logo_ens.jpg) ||
 |-----------------------------|------------|
 |**CLUET David**|     [david.cluet@ens-lyon.fr](david.cluet@ens-lyon.fr)|
 
