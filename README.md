@@ -96,7 +96,7 @@ For ImageJ, the conversion of the analyzed stacks into animated GIFs requires th
 The `FIND-CURVE` macro can be automatically installed with all required files in `ImageJ` and `FIJI`. Please follow the specific instructions described below.
 
 
-![ImageJ Logo](doc/IJ.jpg)
+![ImageJ Logo](src/doc/IJ.jpg)
 ---
 1. Open `ImageJ`.
 2. Open the `src` folder of the `FIND-CURVE` macro.
@@ -106,7 +106,7 @@ The `FIND-CURVE` macro can be automatically installed with all required files in
 6. Restart `ImageJ` to refresh the Menu bar.
 
 
-![FIJI Logo](doc/FIJI.jpg)
+![FIJI Logo](src/doc/FIJI.jpg)
 ---
 1. Open `FIJI`.
 2. Open the `src` folder of the `FIND-CURVE` macro.
