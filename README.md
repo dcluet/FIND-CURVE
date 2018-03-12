@@ -6,7 +6,7 @@ For each file, the program performs the following process:
 1. Identification of the slice with the **largest area**.
 2. On this slice the **angle (OA, OB) is calculated** for every point (O) of the perimeter, with A and B two neighbors points respectively upstream and downstream to O.
 3. The identification of **local maximal angle values** along the perimeter allows to delimit **segments**.
-4. For all segments, **the radius of the best fitting osculatory circle** is calculated. This value is the **curvature radius** ***&rho;*** of the studied segment.  
+4. For all segments, **the radius of the best fitting [osculating circle](https://en.wikipedia.org/wiki/File:Lissajous-Curve%2BOsculatingCircle%2B3vectors_animated.gif)** is calculated. This value is the **curvature radius** ***&rho;*** of the studied segment.  
 
 |![3D stack](src/doc/3D.jpg)|![Identified biggest slice](src/doc/Slice.jpg)|![Segments identification](src/doc/Identification.jpg)|![calculated Radius of curvature](src/doc/Segment.jpg)
 |-------------------------------------|-----------------------------------|-----------------------------------|-----------------------------------|
