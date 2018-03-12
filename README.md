@@ -1,6 +1,12 @@
 Automated calculation of radius of curvature of cytoplasmic membrane
 ===
 
+The `Find-Curve` macro automatically processes all cell stacks contained in a root folder indicated by the user.
+For each file, the program performs the following process:
+1. Identification of the slice with the **largest area**.
+2. On this slice the **angle (OA, OB) is calculated** for every point (O) of the perimeter, with A and B two neighbors points respectively upstream and downstream to O.
+3. The identification of **local maximal angle values** along the perimeter allows to delimit **segments**.
+4. For all segments, **the radius of the best fitting osculatory circle** is calculated. This value is the **curvature radius** ***&rho;*** of the studied segment.  
 
 |![3D stack](src/doc/3D.jpg)|![Identified biggest slice](src/doc/Slice.jpg)|![Segments identification](src/doc/Identification.jpg)|![calculated Radius of curvature](src/doc/Segment.jpg)
 |-------------------------------------|-----------------------------------|-----------------------------------|-----------------------------------|
