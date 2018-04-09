@@ -44,19 +44,12 @@ macro "Main"{
     if (mode=="Manual processing"){
         PathSF = File.openDialog("Choose File to process:");
         File.append(PathSF, PathOutput+File.separator()+"ListFiles.txt");
-        open(PathSF);
-        setLocation(0, 0);
-        waitForUser("Select the best slice");
-        BestSlice = getSliceNumber();
-        close();
+
     }else{
         //Find all tif images
     	Arg1 = ""+PathInput+"\t"+".tif"+"\t"+0+"\t"+PathOutput;
     	runMacro(getDirectory("macros")+File.separator()+"Find-Curve"+File.separator()+"Explorer.java", Arg1);
     }
-
-    //setBatchMode activated
-    setBatchMode(true);
 
 	//Retrieve all Found Images
 	ListImage = File.openAsString(PathOutput+File.separator()+"ListFiles.txt");
@@ -72,12 +65,12 @@ macro "Main"{
 	//Loop of analysis
 	for (i=0; i<lengthOf(ListImage); i++){
 		setBatchMode(true);
+        BestSlice = newArray(-1,-1,-1);
 
 		//Create the orthogonal views
 		open(ListImage[i]);
 
 		myListeOrtho = newArray(3);
-
 
 
 		T = getTitle;
@@ -89,10 +82,18 @@ macro "Main"{
 
 		getPixelSize(unit, pixelWidth, pixelHeight);
 
+
         if (myListeAxis[0]==1){
             selectWindow(T);
     		run("Reslice [/]...", "output="+pixelWidth+" start=Right avoid");
     		saveAs("Tiff", myListeOrtho[0]);
+
+            if (mode=="Manual processing"){
+                setBatchMode("show");
+                waitForUser("X Axis\nSelect the best slice");
+                BestSlice[0] = getSliceNumber();
+                setBatchMode("hide");
+            }
     		close();
         }
 
@@ -100,21 +101,33 @@ macro "Main"{
             selectWindow(T);
     		run("Reslice [/]...", "output="+pixelWidth+" start=Bottom avoid");
     		saveAs("Tiff", myListeOrtho[1]);
+
+            if (mode=="Manual processing"){
+                setBatchMode("show");
+                waitForUser("Y Axis\nSelect the best slice");
+                BestSlice[1] = getSliceNumber();
+                setBatchMode("hide");
+            }
     		close();
         }
 
-
-
 		selectWindow(T);
+
+        if ((mode=="Manual processing") && (myListeAxis[2]==1)){
+            setBatchMode("show");
+            waitForUser("Z Axis\nSelect the best slice");
+            BestSlice[2] = getSliceNumber();
+            setBatchMode("hide");
+        }
+
 		saveAs("Tiff", myListeOrtho[2]);
 		close();
 		for(ort = 0; ort<lengthOf(myListeOrtho); ort++){
 
             if (myListeAxis[ort]==1){
                 Arg2 = ""+myListeOrtho[ort]+"\t"+PathOutput;
-                if (mode=="Manual processing"){
-                    Arg2 += "\t" + BestSlice;
-                }
+                Arg2 += "\t" + BestSlice[ort];
+
                 //Treating the image
                 runMacro(getDirectory("macros")+File.separator()+"Find-Curve"+File.separator()+"Find_Curve.java", Arg2);
                 //Delete the image (spare memory)

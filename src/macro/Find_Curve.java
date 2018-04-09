@@ -5,13 +5,9 @@ macro "Find_Curve" {
 	//_______________________________________________
 	Path = Arguments[0];		//Path of the image to process
 	PathOutput = Arguments[1];	//Path of the folder to store the results
-    if (Arguments.length == 3){
-        BestSlice = parseFloat(Arguments[2]);   //Manual slice identified
-    }else{
-        BestSlice = -1;
-    }
+    BestSlice = parseFloat(Arguments[2]);   //Manual slice identified
 
-	version = "Find-Curve 2018/03/05";		//Version of the macro
+	version = "Find-Curve 2018/04/09";		//Version of the macro
 	WHTML=400;			//width of the low-resolution images diplayed on the html
 	unit = "pix";			//Defaul unit for distance calculation
 	NZ = 10;			//Value of the numeric zoom
@@ -288,8 +284,8 @@ macro "Find_Curve" {
 	//Detection of real summits
 
 	//Remove angle values <200
-	CleanedA = Decap(Angle, TresAngleNeg, TresAngleNeg);
-
+	CleanedA = DecapMax(Angle, TresAngleNeg, TresAngleNeg);
+    CleanedB = DecapMin(Angle, TresAngleNeg, TresAngleNeg);
 	/*
 	Array.show(CleanedA);
  	Array.show(Angle);
@@ -372,8 +368,25 @@ macro "Find_Curve" {
 		}
 	}
 
-	M = SplitF(realAngle,"\t");
+    M = SplitF(realAngle,"\t");
 	Pics = SplitF(Pics, "\t");
+
+    Mmin = Array.findMinima(Angle, Tfiable);
+	n2 = lengthOf(Mmin);
+	Pics2 = "";
+	realAngle2="";
+	for(iM=0; iM< lengthOf(Mmin); iM++){
+		if(Angle[Mmin[iM]] < TresAngleNeg){
+			realAngle2= realAngle2+""+Mmin[iM]+"\t";
+			SumAngle2+= 360-Angle[Mmin[iM]];
+			Pics2 = Pics2+ ""+ Angle[Mmin[iM]]+ "\t";
+		}
+	}
+
+    Mmin = SplitF(realAngle2,"\t");
+	Pics2 = SplitF(Pics2, "\t");
+
+
 
 	//reate the Graph of the best polygon fitting dependingon tolerance
 	Plot.create("Best Tolerance", "Tolerance", "Delta", alltolerance, delta);
@@ -409,7 +422,7 @@ macro "Find_Curve" {
 	Plot.create("Angle with tolerance = "+Tfiable, "Point", "Angle (°)", Tres);
 	Plot.setFrameSize(1000,720);
 	Plot.setLegend("Threshold\tInstantaneous Angle\tValid values\tSummits", "bottom-left transparent");
-	Plot.setLimits(0, lengthOf(CleanedA), 100,300);
+	Plot.setLimits(0, lengthOf(CleanedA), 0,300);
 
 	Plot.setColor("gray");
 	Plot.add("line", Angle);
@@ -420,7 +433,11 @@ macro "Find_Curve" {
 	Plot.setColor("red", "red");
 	Plot.add("circle", M, Pics);
 
+    Plot.setColor("blue", "blue");
+	Plot.add("circle", CleanedB);
 
+	Plot.setColor("cyan", "cyan");
+	Plot.add("circle", Mmin, Pics2);
 
 	Plot.setColor("green");
 	Plot.setLineWidth(3);
@@ -637,6 +654,19 @@ macro "Find_Curve" {
 		setLineWidth(1);
 	}
 
+    //Draw the squares of the minima
+    /*
+	for(i=0; i<lengthOf(M2); i++){
+		Raffich =5;
+		selectWindow("Report");
+		setColor(255,255,255);
+		setLineWidth(10);
+		drawRect(XcoordsHiRes[Mmin[i]]-Raffich*NZ, YcoordsHiRes[Mmin[i]]-Raffich*NZ, Raffich*2*NZ, Raffich*2*NZ);
+		run("Draw");
+		setLineWidth(1);
+	}
+    */
+
 	//Draw each point of the perimeter with the color code of the external angle
 	for(i=0; i<lengthOf(Angle); i++){
 		selectWindow("Report");
@@ -794,7 +824,7 @@ FUNCTIONS
 ______________________________________________
 */
 
-function Decap(MyArray, seuil, correction){
+function DecapMax(MyArray, seuil, correction){
 
 /*
 This function returns a new array contening the values of the original array with the corrected values for those below the threshold.
@@ -814,6 +844,24 @@ This function returns a new array contening the values of the original array wit
 }// End function Decap
 
 
+function DecapMin(MyArray, seuil, correction){
+
+/*
+This function returns a new array contening the values of the original array with the corrected values for those below the threshold.
+*/
+
+	Arraydecap = newArray(lengthOf(MyArray));
+
+	for(inde=0; inde<lengthOf(MyArray); inde++){
+		if(MyArray[inde]< seuil){
+			Arraydecap[inde] = MyArray[inde];
+		}else{
+			Arraydecap[inde] = correction;
+		}
+	}
+	return Arraydecap;
+
+}// End function Decap
 
 
 
