@@ -20,6 +20,11 @@ macro "Find_Curve" {
 	TresAngleNeg = 200;
 	//_______________________________________________
 
+    /*
+        GO TO LINE 241 TO HARDCODED SIZE DEPENDANT ANGLE DEFINITION
+    */
+
+
 	T1 = getTime();
 
 	//Opening Trigo to have at least an image open for setting the parameters (linewidth...)
@@ -233,7 +238,7 @@ macro "Find_Curve" {
 	realsize = lengthOf(Xcoords);
 
     //HARDCODED size dependant window for angle calculation
-    t = t * realsize / 216;
+    // t = t * realsize / 216;
 
 	Xcoords = Array.concat(Xcoords,Xcoords,Xcoords);
 	Ycoords = Array.concat(Ycoords,Ycoords,Ycoords);

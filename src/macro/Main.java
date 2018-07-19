@@ -2,7 +2,7 @@ macro "Main"{
 
     //INFOS
     tag = "v1.0.0"
-    lastStableCommit = "11677e4a"
+    lastStableCommit = "cefe1829"
     gitlaburl = "http://gitlab.biologie.ens-lyon.fr/dcluet/Find_Curve"
 
     //Welcome
