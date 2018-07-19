@@ -1,20 +1,33 @@
 Automated calculation of radius of curvature of cytoplasmic membrane
 ===
 
-The `Find-Curve` macro automatically processes all cell stacks contained in a root folder indicated by the user.
-For each file, the program performs the following process:
+The `Find-Curve` macro for the ImageJ program ([Schneider et al. 2012](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5554542/)) automatically processes all cell stacks contained in a root folder indicated by the user.
+For each file, the program performs the following steps:
 1. Identification of the slice with the **largest area**.
+
+|![Original](src/doc/3D.jpg)|![Identified biggest slice](src/doc/Slice.jpg)|
+|---|---|
+|**Original image (3D representation)**|**Identified "Best" Slice**|
 2. On this slice the **angle (OA, OB) is calculated** for every point (O) of the perimeter, with A and B two neighbors points respectively upstream and downstream to O.
-3. The identification of **local maximal angle values** along the perimeter allows to delimit **segments**.
-4. For all segments, **the radius of the best fitting [osculating circle](https://en.wikipedia.org/wiki/File:Lissajous-Curve%2BOsculatingCircle%2B3vectors_animated.gif)** is calculated. This value is the **curvature radius** ***&rho;*** of the studied segment.  
+
+|![Segments identification](src/doc/Identification.jpg)|
+|---|
+|**Angle values along the cell perimeter**|   |
+3. The identification of **local maximal angle values** along the perimeter allows to delimit **segments** and draw the **regular polygon model** for the cell. The **concave** or **convex** property of the segments is determined using the regular polygon as reference.
+
+|![Regular Polygon and summits](src/doc/Avatar.jpg)|
+|---|
+|**Identified summits (white circles)<br/>Regular fiiting polygon (grey  shape).<br/>Convex segments (blue letters)<br/>Concave segment (red letters)**|
+
+4. For all segments, **the radius of the best fitting osculating circle** is calculated ([Mesmoudi et al. 2010](https://www.researchgate.net/profile/Leila_De_Floriani2/publication/220868972_A_Geometric_Approach_to_Curvature_Estimation_on_Triangulated_3D_Shapes/links/00b7d535728d79a2fb000000/A-Geometric-Approach-to-Curvature-Estimation-on-Triangulated-3D-Shapes.pdf?origin=publication_detail), [Berutti et al. 2012](http://www.zahnheilkunde.de/beitragpdf/pdf_7398.pdf)). This value is the **curvature radius R** of the studied segment.
+
+|![osculating circle](src/doc/Osculating_circle.jpg) |![calculated Radius of curvature](src/doc/Segment.jpg)|
+|---|----|
+|**Principle of the Osculating circle.**   |**Application to the determination<br/>of the curvature radius<br/>of segment B**   |
 5. A **.html report file** is automatically generated.
 
-|![3D stack](src/doc/3D.jpg)|![Identified biggest slice](src/doc/Slice.jpg)|![Segments identification](src/doc/Identification.jpg)|![calculated Radius of curvature](src/doc/Segment.jpg)
-|-------------------------------------|-----------------------------------|-----------------------------------|-----------------------------------|
-|**ORIGINAL 3D CELL**   |**IDENTIFIED "BEST" SLICE**   |**AUTOMATED DETECTION OF THE SEGMENTS**   |**AUTOMATED CALCULATION OF THE RADIUS OF CURVATURE**   |
 
-
-**Authors**
+**Contributors**
 --
 
 | ![LBMC Logo](src/doc/Logo_LBMC.jpg) ![CNRS Logo](src/doc/Logo_cnrs.jpg) ![ENS Logo](src/doc/Logo_ens.jpg) ||
@@ -71,12 +84,14 @@ For ImageJ, the conversion of the analyzed stacks into animated GIFs requires th
     - `Installation_FIJI.ijm`
     - [] **doc**
         - *3D.jpg*
+        - *Avatar.jpg*
         - *FIJI.jpg*
         - *Identification.jpg*
         - *IJ.jpg*
         - *Logo_cnrs.jpg*
         - *Logo_ens.jpg*
         - *Logo_LBMC.jpg*
+        - *Osculating_circle.jpg*
         - *Segment.jpg*
         - *Slice.jpg*
     - [] **macro**
