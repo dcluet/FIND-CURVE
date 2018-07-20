@@ -29,6 +29,14 @@ For each file, the program performs the following steps:
 |**Principle of the Osculating circle.**   |**Application to the determination<br/>of the curvature radius<br/><span style="color:teal">of segment B</span>. The <span style="color:grey">fitting osculating<br/>circle</span> is represented.**  |
 5. A **.html report file** is automatically generated.
 
+**<span style="color:teal">Options</span>**
+==
+
+![Options](src/doc/Interface.jpg)
+
+The user has the possibility to choose between **automatic** and **manual** identification of the **best slice**.
+
+Moreover the analysis can be performed in the three (X, Y, Z) dimensions.
 
 **<span style="color:teal">Contributors</span>**
 ==
