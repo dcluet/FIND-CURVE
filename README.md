@@ -17,13 +17,13 @@ For each file, the program performs the following steps:
 
 |![Regular Polygon and summits](src/doc/Avatar.jpg)|
 |---|
-|**Identified summits (white circles)<br/>Regular fiiting polygon (grey  shape).<br/>Convex segments (blue letters)<br/>Concave segment (red letters)**|
+|**Identified summits (white circles)<br/>Regular fiiting polygon (<span style="color:grey">grey  shape</span>).<br/>Convex segments (<span style="color:blue">blue letters</span>).**|
 
 4. For all segments, **the radius of the best fitting osculating circle** is calculated ([Mesmoudi et al. 2010](https://www.researchgate.net/profile/Leila_De_Floriani2/publication/220868972_A_Geometric_Approach_to_Curvature_Estimation_on_Triangulated_3D_Shapes/links/00b7d535728d79a2fb000000/A-Geometric-Approach-to-Curvature-Estimation-on-Triangulated-3D-Shapes.pdf?origin=publication_detail), [Berutti et al. 2012](http://www.zahnheilkunde.de/beitragpdf/pdf_7398.pdf)). This value is the **curvature radius R** of the studied segment.
 
 |![osculating circle](src/doc/Osculating_circle.jpg) |![calculated Radius of curvature](src/doc/Segment.jpg)|
 |---|----|
-|**Principle of the Osculating circle.**   |**Application to the determination<br/>of the curvature radius<br/>of segment B**   |
+|**Principle of the Osculating circle.**   |**Application to the determination<br/>of the curvature radius<br/><span style="color:teal">of segment B</span>. The <span style="color:grey">fitting osculating<br/>circle</span> is represented.**  |
 5. A **.html report file** is automatically generated.
 
 
