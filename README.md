@@ -33,6 +33,7 @@ For each file, the program performs the following steps:
 | ![LBMC Logo](src/doc/Logo_LBMC.jpg) ![CNRS Logo](src/doc/Logo_cnrs.jpg) ![ENS Logo](src/doc/Logo_ens.jpg) ||
 |-----------------------------|------------|
 |**CLUET David**|     [david.cluet@ens-lyon.fr](david.cluet@ens-lyon.fr)|
+|**VERGIER Blandine**| [blandine.vergier@unistra.fr](blandine.vergier@etu.unistra.fr)  |
 
 
 License
