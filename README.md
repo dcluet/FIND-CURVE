@@ -1,7 +1,10 @@
-Automated calculation of radius of curvature of cytoplasmic membrane
+**<span style="color:teal">Automated calculation of the cell's membrane curvature radius</span>**
 ===
 
 The `Find-Curve` macro for the ImageJ program ([Schneider et al. 2012](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5554542/)) automatically processes all cell stacks contained in a root folder indicated by the user.
+
+**<span style="color:teal">Brief description</span>**
+==
 For each file, the program performs the following steps:
 1. Identification of the slice with the **largest area**.
 
@@ -27,8 +30,8 @@ For each file, the program performs the following steps:
 5. A **.html report file** is automatically generated.
 
 
-**Contributors**
---
+**<span style="color:teal">Contributors</span>**
+==
 
 | ![LBMC Logo](src/doc/Logo_LBMC.jpg) ![CNRS Logo](src/doc/Logo_cnrs.jpg) ![ENS Logo](src/doc/Logo_ens.jpg) ||
 |-----------------------------|------------|
@@ -36,8 +39,8 @@ For each file, the program performs the following steps:
 |**VERGIER Blandine**| [blandine.vergier@unistra.fr](blandine.vergier@etu.unistra.fr)  |
 
 
-License
---
+**<span style="color:teal">License</span>**
+==
 
 Copyright CNRS 2013
 
@@ -69,15 +72,15 @@ to use and operate it in the same conditions as regards security.
 of the CeCILL license and that you accept its terms.
 
 
-**Requirements**
---
+**<span style="color:teal">Requirements</span>**
+==
 The `FIND_CURVE` macro requires `ImageJ v1.49g` or higher ([Download](https://imagej.nih.gov/ij/download.html)).
 
 For ImageJ, the conversion of the analyzed stacks into animated GIFs requires the ([Gif-Stack-Writer Plugin](https://imagej.nih.gov/ij/plugins/gif-stack-writer.html)).
 
 
-**Files**
---
+**<span style="color:teal">Files</span>**
+==
 - [] **src**
     - README.md
     - LICENSE
@@ -114,13 +117,13 @@ For ImageJ, the conversion of the analyzed stacks into animated GIFs requires th
         - `UCBL.jpg`
 
 
-**Installation**
---
+**<span style="color:teal">Installation</span>**
+==
 The `FIND-CURVE` macro can be automatically installed with all required files in `ImageJ` and `FIJI`. Please follow the specific instructions described below.
 
 
 ![ImageJ Logo](src/doc/IJ.jpg)
----
+
 1. Open `ImageJ`.
 2. Open the `src` folder of the `FIND-CURVE` macro.
 3. Drag the `Installation.ijm` file on `ImageJ` Menu bar to open it.
@@ -130,7 +133,7 @@ The `FIND-CURVE` macro can be automatically installed with all required files in
 
 
 ![FIJI Logo](src/doc/FIJI.jpg)
----
+
 1. Open `FIJI`.
 2. Open the `src` folder of the `FIND-CURVE` macro.
 3. Drag the `Installation_Fiji.ijm` file on `FIJI` Menu bar to open it.
@@ -139,6 +142,6 @@ The `FIND-CURVE` macro can be automatically installed with all required files in
 6. Restart `FIJI` to refresh the Menu bar.
 
 
-Update
----
+**<span style="color:teal">Update</span>**
+==
 Follow the same instructions as for the installation process.
