@@ -613,11 +613,13 @@ macro "Find_Curve" {
 		}
 
 		//Add Info as String on the picture
+        /*
 		TexteToImage = ""+AlphaB[iS]+"\n"+"R="+CVex[5]+" +/- "+CVex[6];
 		setForegroundColor(49,133,156);
 		setJustification("center");
 		Ws = getStringWidth(TexteToImage);
 		drawString(TexteToImage , XcellHiRes, YcellHiRes);
+        */
 
 		//Saving High Resolution
 		SaveNative("Segment_"+AlphaB[iS], WHTML, PathStorage+File.separator()+"Segment_"+AlphaB[iS]+".jpg");
