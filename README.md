@@ -3,6 +3,12 @@
 
 The `Find-Curve` macro for the ImageJ program ([Schneider et al. 2012](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5554542/)) automatically processes all cell stacks contained in a root folder indicated by the user.
 
+**<span style="color:teal">Recommendations</span>**
+==
+**Avoid file paths containing spaces.** Depending on your OS and ImageJ version this kind of paths can be non compatible with certain open/save functions.
+
+As initially designed, the macro is configure to find **black shapes** within a **white background**.
+
 **<span style="color:teal">Brief description</span>**
 ==
 For each file, the program performs the following steps:
@@ -37,6 +43,12 @@ For each file, the program performs the following steps:
 The user has the possibility to choose between **automatic** and **manual** identification of the **best slice**.
 
 Moreover the analysis can be performed in the three (X, Y, Z) dimensions.
+
+**<span style="color:teal">Test set of stacks acquisitions</span>**
+==
+If you want to test this program, we provide you a set of several stacks:
+
+[Download here](https://filesender.ens-lyon.fr/?vid=136d4c31-84a9-3f89-eb15-00004b64904e)
 
 **<span style="color:teal">Contributors</span>**
 ==
